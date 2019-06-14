@@ -131,7 +131,31 @@ function removeTask(e){
 
 if(e.target.parentElement.classList.contains('delete-item')){
 e.target.parentElement.parentElement.remove();
+
+removeTaskFromLS(e.target.parentElement.parentElement);
   }
+}
+
+// remove task from local storage
+
+function removeTaskFromLS(taskItem){
+  let tasksArr;
+
+  if(localStorage.getItem('tasks') === null) {
+    tasksArr = [];
+  } else {
+    tasksArr = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasksArr.forEach(function(cur,index){
+    if(taskItem.textContent === cur){
+      tasksArr.splice(index, 1);
+    }
+
+  })
+
+  localStorage.setItem('tasks', JSON.stringify(tasksArr));
+
 }
 
 // Clear Task
